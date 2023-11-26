@@ -1,61 +1,87 @@
-import { StyleSheet, Text, View,Image } from 'react-native'
-import React from 'react'
-import { Avatar } from '@rneui/base'
-import {Feather } from 'react-native-vector-icons'
+import { StyleSheet, Text, View, Image } from "react-native";
+import React, { useEffect } from "react";
+import { Avatar } from "@rneui/base";
+import { Feather } from "react-native-vector-icons";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  getDocs,
+  collection,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "./config";
+const AccountScreen = ({ route }) => {
+  const {id} = route.params
+  useEffect(()=>{
+    read()
+  },[])
+  const read = async () => {
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
 
-const AccountScreen = () => {
   return (
     <View style={styles.container}>
-      <Text/>
-      <View style={{alignItems:'center',paddingBottom:20}}> 
-          <Avatar size="xlarge" rounded source={require("../assets/parking.jpg")}/>
-          <Text/>
-          <Text>Adam Marcus</Text>
-          <Text/>
-          <Text>adam@yahoo.com</Text>
+      <Text />
+      <View style={{ alignItems: "center", paddingBottom: 20 }}>
+        <Avatar
+          size="xlarge"
+          rounded
+          source={require("../assets/parking.jpg")}
+        />
+        <Text />
+        <Text>Adam Marcus</Text>
+        <Text />
+        <Text>adam@yahoo.com</Text>
       </View>
-      <Text/>
+      <Text />
       <View style={styles.icons}>
-      <Feather name="user" size={40} />
+        <Feather name="user" size={40} />
         <Text style={styles.name}>Edit Profile</Text>
       </View>
-      <Text/>
+      <Text />
       <View style={styles.icons}>
-      <Feather name="user" size={40} />
+        <Feather name="user" size={40} />
         <Text style={styles.name}>Add Card</Text>
       </View>
-      <Text/>
+      <Text />
       <View style={styles.icons}>
-      <Feather name="user" size={40} />
+        <Feather name="user" size={40} />
         <Text style={styles.name}>Add Vehicle</Text>
       </View>
-      <Text/>
+      <Text />
       <View style={styles.icons}>
-      <Feather name="user" size={40} />
+        <Feather name="user" size={40} />
         <Text style={styles.name}>Help</Text>
       </View>
-      <Text/>
+      <Text />
       <View style={styles.icons}>
-      <Feather name="user" size={40} />
+        <Feather name="user" size={40} />
         <Text style={styles.name}>Logout</Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default AccountScreen
+export default AccountScreen;
 
 const styles = StyleSheet.create({
-  container:{
-    marginHorizontal:20
-    
+  container: {
+    marginHorizontal: 20,
   },
-  icons:{
-    flexDirection:'row'
+  icons: {
+    flexDirection: "row",
   },
-  name:{
-    paddingTop:8,
-    fontSize:20
-    ,paddingLeft:10
-  }
-})
+  name: {
+    paddingTop: 8,
+    fontSize: 20,
+    paddingLeft: 10,
+  },
+});

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,TextInput,Button } from 'react-native'
 import React, { useState } from 'react'
 import {
     doc,
@@ -10,10 +10,11 @@ import {
   import { db } from "./config";
 
 const AddVehicle = ({navigation,route}) => {
-  const {id,name,mobile,address} = route.params
+  const {id} = route.params
   const [vehicleName, setVehicleName] = useState("");
   const [licensePlate, setLicensePlate] = useState("");
   const [vehicles,setVehicles] =useState([])
+  const [image,setImage] = useState("https://i.fbcd.co/products/resized/resized-1500-1000/1d83834ba8fa525bbff21a3f201cc93870cf12a7715bd8cf12a426fc71c15005.jpg")
 const store = async () => {
     const docRef = doc(db, "users",id)
     await setDoc(docRef, { name:name,mobile: mobile, address: address,vehicles:vehicles },{merge:true} )
@@ -28,7 +29,8 @@ const addToVehicles = () => {
   let temp = [...vehicles]
   temp.push({
     vehicleName:vehicleName,
-    licensePlate:licensePlate
+    licensePlate:licensePlate,
+    image:image
   })
   setVehicleName("")
   setLicensePlate("")

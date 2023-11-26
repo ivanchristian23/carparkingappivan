@@ -1,9 +1,9 @@
 import { Dimensions, StyleSheet, Text, View,TouchableOpacity, Image } from "react-native";
 import React from "react";
-
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 const CarSpot = (prop) => {
-    const windowWidth = Dimensions.get("window").width;
-    const windowHeight = Dimensions.get("window").height;
+    
   return (
     <View>
       <View style={{ flexDirection: "row", justifyContent: "space-around" }}>

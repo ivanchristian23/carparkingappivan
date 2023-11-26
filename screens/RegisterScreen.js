@@ -16,13 +16,13 @@ const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
-  const [countUser, setCountUser] = useState(0);
+  // const [countUser, setCountUser] = useState(0);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmpassword, setConfirmPassword] = useState();
-  const incrementUserCount = () => {
-    setCountUser(countUser + 1);
-  };
+  // const incrementUserCount = () => {
+  //   setCountUser(countUser + 1);
+  // };
   const handleRegister = () => {
     if (password != confirmpassword) {
       alert("Password Mismatch");
@@ -32,18 +32,17 @@ const RegisterScreen = ({ navigation }) => {
       .then(() => {
         console.log("registered");
         store()
-        setEmail();
-        setPassword();
-        setConfirmPassword();
-        setRegisterFlag(false);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        // setRegisterFlag(false);
       })
       .catch((error) => console.log(error.message));
   };
   const store = async () => {
-    incrementUserCount();
-    const docRef = doc(db, "customers", String(countUser));
+    // incrementUserCount();
+    const docRef = doc(db, "customers", email);
     await setDoc(docRef, {
-      id: countUser,
       name: name,
       address: address,
       mobile: mobile,
@@ -54,10 +53,7 @@ const RegisterScreen = ({ navigation }) => {
         setAddress("");
         setMobile("");
         navigation.navigate("AddVehicle", {
-          id: countUser,
-          name: name,
-          address: address,
-          mobile: mobile,
+          id: email
         });
       })
       .catch((error) => {
@@ -69,6 +65,8 @@ const RegisterScreen = ({ navigation }) => {
       <Text style={styles.title}>Become a Member Now</Text>
       <TextInput
         style={styles.input}
+        autoCapitalize={false}
+        autoCorrect={false}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
         value={email}
@@ -76,6 +74,8 @@ const RegisterScreen = ({ navigation }) => {
 
       <TextInput
         style={styles.input}
+        autoCapitalize={false}
+        autoCorrect={false}
         placeholder="Password"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
@@ -84,6 +84,8 @@ const RegisterScreen = ({ navigation }) => {
       <TextInput
         placeholder="Confirm password"
         value={confirmpassword}
+        autoCapitalize={false}
+        autoCorrect={false}
         onChangeText={(text) => setConfirmPassword(text)}
         style={styles.input}
         secureTextEntry
@@ -91,12 +93,16 @@ const RegisterScreen = ({ navigation }) => {
       <TextInput
         style={styles.input}
         placeholder="Name"
+        autoCapitalize={false}
+        autoCorrect={false}
         onChangeText={(text) => setName(text)}
         value={name}
       />
       <TextInput
         style={styles.input}
         placeholder="Address"
+        autoCapitalize={false}
+        autoCorrect={false}
         onChangeText={(text) => setAddress(text)}
         value={address}
       />

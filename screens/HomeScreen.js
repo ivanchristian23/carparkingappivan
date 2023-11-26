@@ -137,7 +137,7 @@ const HomeScreen = ({ navigation }) => {
               <Text />
               <Image
                 style={styles.mainImage}
-                source={{uri: item.image}}
+                source={{uri: item.picture}}
               />
               <Text />
               <View style={styles.icons}>

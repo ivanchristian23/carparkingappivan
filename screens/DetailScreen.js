@@ -8,15 +8,15 @@ import { Button,Card } from "@rneui/themed";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const DetailScreen = ({ navigation, route }) => {
-  const { address, distance, image, parking, status, vacant } = route.params;
+  const { address, distance, picture, name, status, vacant } = route.params;
   useEffect(() => {
     // do something
   }, []);
   return (
     <View style={styles.container}>
-      <Image style={styles.mainImage} source={{ uri: image }} />
+      <Image style={styles.mainImage} source={{ uri: picture }} />
       <Text />
-      <Text style={styles.textName}>{parking}</Text>
+      <Text style={styles.textName}>{name}</Text>
       <Text style={styles.textAddress}>{address}</Text>
       <Text />
       <View style={styles.icons}>

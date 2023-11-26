@@ -7,15 +7,13 @@ import AccountScreen from './AccountScreen';
 import {FontAwesome } from 'react-native-vector-icons'
 import Drawers from './Drawers';
 const Tab = createBottomTabNavigator();
-const Tabs = () => {
+const Tabs = ({navigation,route}) => {
+  const {id} = route.params
   return (
     <Tab.Navigator screenOptions={{tabBarActiveTintColor:'darkblue'}}>
-      <Tab.Screen name="Drawers" component={Drawers} options={{
-            headerShown: false,tabBarButton: props => null,
-          }}/>
-      <Tab.Screen name="HomeScreen" component={HomeScreen}  options={{
+      <Tab.Screen name="Drawers" component={Drawers} initialParams={{id:id}} options={{
+        headerShown:false,
       tabBarLabel: 'Home',
-      
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="home" color={color} size={size} />
       ),}}/>
@@ -24,7 +22,7 @@ const Tabs = () => {
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="calendar-check-o" color={color} size={size} />
       ),}}/>
-      <Tab.Screen name="AccountScreen" component={AccountScreen} options={{
+      <Tab.Screen name="AccountScreen" component={AccountScreen} initialParams={{id:id}} options={{
       tabBarLabel: 'Account',
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="user" color={color} size={size} />

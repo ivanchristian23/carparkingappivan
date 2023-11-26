@@ -15,11 +15,12 @@ import SelectVehicle from "./screens/SelectVehicle";
 import PaymentMethod from "./screens/PaymentMethod";
 import AddCard from "./screens/AddCard";
 import PickParking from "./screens/PickParking";
+import AdminNavigator from './adminscreens/AdminNavigator';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SelectVehicle">
+      <Stack.Navigator initialRouteName="LoginScreen">
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -60,7 +61,7 @@ export default function App() {
         name="PickParking"
         component={PickParking}
         options={{
-          headerShown: false,
+          headerTitle:"Book Your Slot"
         }}
       />
       <Stack.Screen
@@ -89,6 +90,13 @@ export default function App() {
         component={AddCard}
         options={{
           headerTitle:"Add a New Card"
+        }}
+      />
+      <Stack.Screen
+        name="AdminNavigator"
+        component={AdminNavigator}
+        options={{
+          headerShown: false,
         }}
       />
       

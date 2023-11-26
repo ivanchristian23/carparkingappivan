@@ -1,7 +1,5 @@
 // LoginScreen.js
-import {
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -23,7 +21,10 @@ const LoginScreen = ({ navigation }) => {
       .then(() => {
         console.log("Logged in");
         setSignedIn(true);
-        navigation.replace("HomeScreen");
+        if (email== 'admin@admin.com'){
+          navigation.replace('AdminNavigator')
+        }
+        navigation.replace("Tabs",{id:email});
       })
       .catch((error) => {
         console.log(error.message);
@@ -36,6 +37,8 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.title}>Parking App</Text>
 
       <TextInput
+        autoCapitalize={false}
+        autoCorrect={false}
         style={styles.input}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
@@ -46,6 +49,8 @@ const LoginScreen = ({ navigation }) => {
         style={styles.input}
         placeholder="Password"
         secureTextEntry
+        // autoCapitalize={false}
+        // autoCorrect={false}
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
@@ -55,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.register}
-        onPress={()=> navigation.navigate("RegisterScreen")}
+        onPress={() => navigation.navigate("RegisterScreen")}
       >
         <Text style={styles.regText}>Register Now</Text>
       </TouchableOpacity>
