@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     fetchData();
     fetchPopularPlace();
-    
+    setLoading(false)
   }, []);
   const fetchData = async () => {
     const docs = await getDocs(collection(db, "parkingAreas"));
@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
       console.log(doc.id, " => ", doc.data());
     });
     setPopularPlaces(temp);
-    setLoading(false)
+    
   };
 
   const handleSearch = (query) => {
