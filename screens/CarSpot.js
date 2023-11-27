@@ -10,11 +10,12 @@ const CarSpot = (prop) => {
         <TouchableOpacity onPress={prop.select}>
           <View style={styles.longbox}>
             {
-                prop.st.disabled?<Image
+                prop.st.available?<Text>{prop.st.parkingLot}</Text>
+                :<Image
                 style={{ width: windowWidth / 4, height: windowHeight / 4 }}
-                source={prop.st.pic}
+                source={require('../assets/car_icon.jpg')}
                 resizeMode="center"
-              />:<Text>{prop.st.name}</Text>
+              />
             }
           </View>
         </TouchableOpacity>

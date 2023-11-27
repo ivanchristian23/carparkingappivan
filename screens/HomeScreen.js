@@ -21,7 +21,7 @@ const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [fullData, setFullData] = useState([]);
   const [popularPlaces, setPopularPlaces] = useState([]);
-
+  //route params for the id of the customer to pass it to selectvehicle
   useEffect(() => {
     fetchData();
     fetchPopularPlace();

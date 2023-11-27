@@ -14,22 +14,29 @@ import { FlatList } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const SelectVehicle = ({ navigation }) => {
+const SelectVehicle = ({ navigation,route }) => {
+  const {name,parkingLot,address} = route.params 
   const [checked, setChecked] = useState("first");
   const [data, setData] = useState([]);
   const [info, setInfo] = useState();
   useEffect(() => {
-    
+    // fetchData()
   }, []);
   const fetchData = async () => {
-    const docRef = doc(db, "users", userID);
+    const docRef = doc(db, "parkingAreas", name);
     const docSnap = await getDoc(docRef);
+    let temp = []
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+      console.log("Document data:", docSnap.data().vehicles);
+      const items = docSnap.data().vehicles
+      items.forEach((i)=>{
+        temp.push(i)
+      })
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
+    setData(temp)
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -63,7 +70,7 @@ const SelectVehicle = ({ navigation }) => {
           <Text style={styles.buttonText}>Add Card</Text>
         </TouchableOpacity>
       </Card>
-
+      
       <Button
         title="Confirm"
         containerStyle={styles.button}

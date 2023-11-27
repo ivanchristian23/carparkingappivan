@@ -11,12 +11,13 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-const AddCard = ({ navigation }) => {
+const AddCard = ({ navigation,route }) => {
+  const {id} = route.params
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCVV] = useState("");
   const handlePayment = async () => {
-    const docRef = doc(db, "customers", "Ehwle2S5c8791Vgwtsyl");
+    const docRef = doc(db, "customers", id);
     await setDoc(
       docRef,
       {card:{cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv}},

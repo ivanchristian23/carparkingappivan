@@ -9,17 +9,19 @@ import CarSpot from "./CarSpot";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const PickParking = ({navigation,route}) => {
-  
-  const {name} = route.params
+  const { address, name } = route.params;
   const [info, setInfo] = useState([]);
   // const [flag, setFlag] = useState(true);
   const fetchData = async () => {
-    const docRef = doc(db, "popularAreas", name);
+    const docRef = doc(db, "parkingAreas", name);
     const docSnap = await getDoc(docRef);
     let temp = []
     if (docSnap.exists()) {
-      // console.log("Document data:", docSnap.data());
-      temp.push(docSnap.data().parkings)
+      console.log("Document data:", docSnap.data().parkings);
+      const items = docSnap.data().parkings
+      items.forEach((i)=>{
+        temp.push(i)
+      })
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
@@ -29,9 +31,22 @@ const PickParking = ({navigation,route}) => {
   const select = (id) => {
     let temp = [...info];
     let ob = temp.find((x) => x.id == id);
-    ob.disabled = !ob.disabled;
+    ob.available = !ob.available;
     setInfo(temp);
+    store(ob)
+    navigation.navigate("SelectVehicle",{name:name,address:address,parkingLot:ob.parkingLot})
   };
+  const store = async (ob) => {
+    const docRef = doc(db, "parkingAreas",name)
+    await setDoc(docRef, { parkings:info },{merge:true} )
+        .then(() => { console.log('data submitted')
+        fetchData()
+        
+    })
+        .catch((error) => { console.log(error.message) })
+
+}
+  
   useEffect(()=>{
     fetchData()
   },[])
