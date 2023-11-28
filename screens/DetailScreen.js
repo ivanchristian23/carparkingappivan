@@ -8,7 +8,7 @@ import { Button,Card } from "@rneui/themed";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const DetailScreen = ({ navigation, route }) => {
-  const { address, distance, picture, name, status, vacant } = route.params;
+  const { address, distance, picture, name, status, vacant,id1 } = route.params;
   useEffect(() => {
     // do something
   }, []);

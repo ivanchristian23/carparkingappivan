@@ -9,7 +9,7 @@ import CarSpot from "./CarSpot";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const PickParking = ({navigation,route}) => {
-  const { address, name } = route.params;
+  const { address, name,id1 } = route.params;
   const [info, setInfo] = useState([]);
   // const [flag, setFlag] = useState(true);
   const fetchData = async () => {
@@ -34,7 +34,7 @@ const PickParking = ({navigation,route}) => {
     ob.available = !ob.available;
     setInfo(temp);
     store(ob)
-    navigation.navigate("SelectVehicle",{name:name,address:address,parkingLot:ob.parkingLot})
+    navigation.navigate("SelectVehicle",{name:name,address:address,parkingLot:ob.parkingLot,id:id1})
   };
   const store = async (ob) => {
     const docRef = doc(db, "parkingAreas",name)

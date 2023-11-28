@@ -68,7 +68,7 @@ export default function App() {
         name="SelectVehicle"
         component={SelectVehicle}
         options={{
-          headerShown: false,
+          headerTitle: "Select a Vehicle"
         }}
       />
       <Stack.Screen

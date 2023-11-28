@@ -17,7 +17,7 @@ const AddVehicle = ({navigation,route}) => {
   const [image,setImage] = useState("https://i.fbcd.co/products/resized/resized-1500-1000/1d83834ba8fa525bbff21a3f201cc93870cf12a7715bd8cf12a426fc71c15005.jpg")
 const store = async () => {
     const docRef = doc(db, "customers",id)
-    await setDoc(docRef, { name:name,mobile: mobile, address: address,vehicles:vehicles },{merge:true} )
+    await setDoc(docRef, {vehicles:vehicles },{merge:true} )
         .then(() => { console.log('data submitted')
         setVehicles([])
         readAll()

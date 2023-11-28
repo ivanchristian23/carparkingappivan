@@ -3,28 +3,28 @@ import React from "react";
 import { Card,Avatar } from "@rneui/themed";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 const PaymentDetails = ({navigation,route}) => {
-  const {name,icon} = route.params
+  const {name,icon,parkingname,address,parkingLot,id,vehicleName} = route.params
   return (
     <View>
       <Card width={"90%"} height={"50%"} containerStyle={{ borderRadius: 4 }}>
         <View style={styles.details}>
           <Text style={styles.title}>Parking Area</Text>
-          <Text style={styles.content}>Parking Lot of San Manolia</Text>
+          <Text style={styles.content}>{parkingname}</Text>
         </View>
         <Text/>
         <View style={styles.details}>
           <Text style={styles.title}>Address</Text>
-          <Text style={styles.content}>9569 Trantrow</Text>
+          <Text style={styles.content}>{address}</Text>
         </View>
         <Text/>
         <View style={styles.details}>
           <Text style={styles.title}>Vehicle</Text>
-          <Text style={styles.content}>Ford</Text>
+          <Text style={styles.content}>{vehicleName}</Text>
         </View>
         <Text/>
         <View style={styles.details}>
           <Text style={styles.title}>Parking Spot</Text>
-          <Text style={styles.content}>1st Floor </Text>
+          <Text style={styles.content}>{parkingLot} </Text>
         </View>
         <Text/>
         <View style={styles.details}>

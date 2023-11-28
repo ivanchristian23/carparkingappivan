@@ -14,14 +14,14 @@ import { ActivityIndicator } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation,route }) => {
   const [search, setSearch] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState([]);
   const [fullData, setFullData] = useState([]);
   const [popularPlaces, setPopularPlaces] = useState([]);
-  //route params for the id of the customer to pass it to selectvehicle
+  const {id} = route.params
   useEffect(() => {
     fetchData();
     fetchPopularPlace();
@@ -158,7 +158,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
               </View>
               <Text />
-              <Button title="Book Now" containerStyle={{ borderRadius: 5 }} onPress={()=> navigation.navigate("DetailScreen",item)} />
+              <Button title="Book Now" containerStyle={{ borderRadius: 5 }} onPress={()=> navigation.navigate("DetailScreen",{address:item.address, distance:item.distance, picture:item.picture, name:item.name, status:item.status, vacant:item.vacant,id1:id})} />
             </View>
         }
           />

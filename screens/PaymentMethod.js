@@ -7,7 +7,8 @@ import { db } from "./config";
 import { FlatList } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-const PaymentMethod = ({navigation}) => {
+const PaymentMethod = ({navigation,route}) => {
+  const {name,parkingLot,address,id,vehicleName} = route.params 
   const [checked, setChecked] = useState('first');
   const [data, setData] = useState([]);
   const [info, setInfo] = useState()
@@ -58,7 +59,7 @@ const HandleInfo= (radio,name,icon)=>{
       </TouchableOpacity>
       </Card>
       
-      <Button title="Confirm" containerStyle={styles.button}onPress={()=> navigation.navigate("PaymentDetails",{name:info.name,icon:info.icon})}/>
+      <Button title="Confirm" containerStyle={styles.button}onPress={()=> navigation.navigate("PaymentDetails",{paymentName:info.name,paymentIcon:info.icon,parkingname:name,parkingLot:parkingLot,address:address,id:id,vehicleName:vehicleName})}/>
     </SafeAreaView>
   );
 };

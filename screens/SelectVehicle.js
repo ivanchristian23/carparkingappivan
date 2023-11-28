@@ -8,22 +8,22 @@ import {
 import React, { useState } from "react";
 import { Card, Avatar, Button } from "@rneui/themed";
 import { useEffect } from "react";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection,getDoc,doc } from "firebase/firestore";
 import { db } from "./config";
 import { FlatList } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SelectVehicle = ({ navigation,route }) => {
-  const {name,parkingLot,address} = route.params 
+  const {name,parkingLot,address,id} = route.params 
   const [checked, setChecked] = useState("first");
   const [data, setData] = useState([]);
   const [info, setInfo] = useState();
   useEffect(() => {
-    // fetchData()
+    fetchData()
   }, []);
   const fetchData = async () => {
-    const docRef = doc(db, "parkingAreas", name);
+    const docRef = doc(db, "customers", id);
     const docSnap = await getDoc(docRef);
     let temp = []
     if (docSnap.exists()) {
@@ -36,8 +36,14 @@ const SelectVehicle = ({ navigation,route }) => {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
+    // setInfo(temp[0])
+    console.log(temp[0]);
     setData(temp)
   };
+  const HandleInfo= (radio,name,icon)=>{
+    setChecked(radio)
+    setInfo({name:name,icon:icon})
+  }
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -65,16 +71,16 @@ const SelectVehicle = ({ navigation,route }) => {
       <Card containerStyle={{ borderRadius: 4 }}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("AddVehicle")}
+          onPress={() => navigation.navigate("AddVehicle",{id:id})}
         >
-          <Text style={styles.buttonText}>Add Card</Text>
+          <Text style={styles.buttonText}>Add Vehicle</Text>
         </TouchableOpacity>
       </Card>
       
       <Button
         title="Confirm"
         containerStyle={styles.button}
-        onPress={() => navigation.navigate("PaymentMethod")}
+        onPress={() => navigation.navigate("PaymentMethod",{name:name,parkingLot:parkingLot,address:address,id:id,vehicleName:info.name})}
       />
     </SafeAreaView>
   );
