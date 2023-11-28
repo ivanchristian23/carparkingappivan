@@ -88,11 +88,10 @@ const styles = StyleSheet.create({
   content: {
     color: "black",
     fontSize: 16,
-    fontFamily: "sans-serif",
+
   },
   title: {
     fontSize: 16,
     color: "gray",
-    fontFamily: "sans-serif",
   },
 });

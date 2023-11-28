@@ -36,8 +36,7 @@ const SelectVehicle = ({ navigation,route }) => {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
-    // setInfo(temp[0])
-    console.log(temp[0]);
+    setInfo(temp[0])
     setData(temp)
   };
   const HandleInfo= (radio,name,icon)=>{
@@ -82,6 +81,7 @@ const SelectVehicle = ({ navigation,route }) => {
         containerStyle={styles.button}
         onPress={() => navigation.navigate("PaymentMethod",{name:name,parkingLot:parkingLot,address:address,id:id,vehicleName:info.name})}
       />
+      {/* vehicleName:info.name */}
     </SafeAreaView>
   );
 };

@@ -79,7 +79,7 @@ const PickParking = ({navigation,route}) => {
       <View style={{flexDirection:"row",flexWrap:'wrap'}}>
       {info.map((x) => (
         <View style={{width:windowWidth/3}}>
-        <CarSpot st={x} key={x.id} select={()=>select(x.id)} />
+        <CarSpot st={x} key={x.parkingLot} select={()=>select(x.id)} />
         </View>
       ))}
       </View>

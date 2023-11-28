@@ -17,7 +17,8 @@ const Tabs = ({navigation,route}) => {
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="home" color={color} size={size} />
       ),}}/>
-      <Tab.Screen name="BookingScreen" component={BookingScreen} options={{
+      <Tab.Screen name="BookingScreen" component={BookingScreen} initialParams={{id:id}} options={{
+        headerTitle:"My Bookings",
       tabBarLabel: 'Bookings',
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="calendar-check-o" color={color} size={size} />

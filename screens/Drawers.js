@@ -23,6 +23,7 @@ const Drawers = ({navigation,route}) => {
         drawerPosition: "left",
         headerLeft: () => <DrawerToggleButton />,
         headerRight: false,
+        
       }}
     >
       <Drawer.Screen
@@ -33,6 +34,7 @@ const Drawers = ({navigation,route}) => {
           headerLeft: () => <DrawerToggleButton />,
           headerRight: false,
         }}
+        options={{headerTitle:"Home"}}
         initialParams={{id:id}}
       />
       <Drawer.Screen

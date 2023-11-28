@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import { Avatar } from "@rneui/base";
 import { Feather } from "react-native-vector-icons";
@@ -10,7 +10,7 @@ import {
   collection,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "./config";
+import { db } from "./config"
 const AccountScreen = ({ route }) => {
   const {id} = route.params
   useEffect(()=>{
@@ -41,31 +41,40 @@ const AccountScreen = ({ route }) => {
         <Text />
         <Text>adam@yahoo.com</Text>
       </View>
-      <Text />
+      <TouchableOpacity>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Edit Profile</Text>
       </View>
-      <Text />
+      </TouchableOpacity>
+      <Text/>
+      <TouchableOpacity>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Add Card</Text>
       </View>
+      </TouchableOpacity>
       <Text />
+      <TouchableOpacity>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Add Vehicle</Text>
       </View>
+      </TouchableOpacity>
       <Text />
+      <TouchableOpacity>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Help</Text>
       </View>
+      </TouchableOpacity>
       <Text />
+      <TouchableOpacity>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Logout</Text>
       </View>
+      </TouchableOpacity>
     </View>
   );
 };

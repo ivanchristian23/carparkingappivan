@@ -1,38 +1,76 @@
-import { StyleSheet, Text, View,Image, Dimensions } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card } from '@rneui/themed';
+import { getDocs, collection,getDoc,doc } from "firebase/firestore";
+import { db } from "./config";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-const BookingScreen = () => {
+const BookingScreen = ({ route }) => {
+  const {id} = route.params
+  const [show,setShow] = useState(false)
+  const [data, setData] = useState([])
+  const fetchData = async () => {
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    let temp = []
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data().bookings);
+      const items = docSnap.data().bookings
+      items.forEach((i)=>{
+        temp.push(i)
+      })
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    setData(temp)
+  };
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerIcons}>
-        <View style={styles.icon}>
-        <Text style={{alignSelf:'center'}}>Ongoing</Text>
-        </View>
-        <View style={styles.icon}>
-        <Text style={{alignSelf:'center'}}>Completed</Text>
-        </View>
-        <View style={styles.icon}>
-        <Text style={{alignSelf:'center'}}>Canceled</Text>
-        </View>
-        
-      </View>
-      <Card height={"38%"} width={'90%'} containerStyle={{borderRadius:10}}>
-        <View style={styles.cardStyle}>
-          <Image source={require("../assets/parking.jpg")} style={styles.image_right}/>
-          <View style={{justifyContent:'space-evenly',paddingLeft:20}}>
-            <Text>Al Wakra Parking</Text>
-            <Text>Al Wakra</Text>
-            <Text>10 QR/ 6 hours</Text>
-            <View style={{borderWidth:2,borderColor:'red',borderRadius:5,height:30,width:75,paddingTop:5}}>
-            <Text style={{alignSelf:'center'}}>Canceled</Text>
-            </View>
-            
+        <TouchableOpacity>
+          <View style={styles.icon}>
+            <Text style={{ alignSelf: 'center' }}>Ongoing</Text>
           </View>
-        </View>
-        </Card>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={styles.icon}>
+            <Text style={{ alignSelf: 'center' }}>Completed</Text>
+          </View>
+        </TouchableOpacity>
+        {/* <TouchableOpacity>
+          <View style={styles.icon}>
+            <Text style={{ alignSelf: 'center' }}>Canceled</Text>
+          </View>
+        </TouchableOpacity> */}
+
+      </View>
+      <Card height={"38%"} width={'90%'} containerStyle={{ borderRadius: 10 }}>
+      <FlatList
+        data={data}
+        ItemSeparatorComponent={() => {
+          <Text></Text>;
+        }}
+        renderItem={({ item }) => (
+          
+            <View style={styles.cardStyle}>
+              <Image source={{ uri: item.picture }} style={styles.image_right} />
+              <View style={{ justifyContent: 'space-evenly', paddingLeft: 20 }}>
+                <Text>{item.name}</Text>
+                <Text>{item.address}</Text>
+                <Text>{item.payment} QR/ {item.hours}</Text>
+                <View style={{ borderWidth: 2, borderColor: 'red', borderRadius: 5, height: 30, width: 75, paddingTop: 5 }}>
+                  <Text style={{ alignSelf: 'center' }}>{item.status}</Text>
+                </View>
+              </View>
+            </View>
+          
+        )} />
+      </Card>
     </SafeAreaView>
   )
 }
@@ -40,27 +78,27 @@ const BookingScreen = () => {
 export default BookingScreen
 
 const styles = StyleSheet.create({
-  container:{
-    marginHorizontal:20
+  container: {
+    marginHorizontal: 20
   },
-  headerIcons:{
-    flexDirection:'row'
-    ,justifyContent:'space-around'
+  headerIcons: {
+    flexDirection: 'row'
+    , justifyContent: 'space-around'
   },
-  icon:{
-    borderColor:'darkblue'
-    ,borderWidth:2
-    ,borderRadius:10
-    ,height:35
-    ,width:90,
-    paddingTop:5
+  icon: {
+    borderColor: 'darkblue'
+    , borderWidth: 2
+    , borderRadius: 10
+    , height: 35
+    , width: 150,
+    paddingTop: 5
   },
-  cardStyle:{
-    flexDirection:'row',
+  cardStyle: {
+    flexDirection: 'row',
 
   },
-  image_right:{
-    width:windowWidth/4
-    ,height:windowHeight/11
+  image_right: {
+    width: windowWidth / 4
+    , height: windowHeight / 11
   },
 })
