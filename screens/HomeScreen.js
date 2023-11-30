@@ -66,6 +66,10 @@ const HomeScreen = ({ navigation,route }) => {
     }
     return false;
   };
+  const backButton = () =>{
+    setSearch(false)
+    setSearchQuery("")
+  }
   return (
     <SafeAreaView>
       {search ? (
@@ -73,7 +77,7 @@ const HomeScreen = ({ navigation,route }) => {
           <Feather
             name="arrow-left"
             size={30}
-            onPress={() => setSearch(false)}
+            onPress={backButton}
           />
           <Text />
           <TextInput

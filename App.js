@@ -16,11 +16,12 @@ import PaymentMethod from "./screens/PaymentMethod";
 import AddCard from "./screens/AddCard";
 import PickParking from "./screens/PickParking";
 import AdminNavigator from './adminscreens/AdminNavigator';
+import TimePickerScreen from './screens/TimePickerScreen';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Navigator initialRouteName="TimePickerScreen">
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -57,11 +58,19 @@ export default function App() {
           headerTitle:"Parking Details"
         }}
       />
+      
       <Stack.Screen
         name="PickParking"
         component={PickParking}
         options={{
           headerTitle:"Book Your Slot"
+        }}
+      />
+      <Stack.Screen
+        name="TimePickerScreen"
+        component={TimePickerScreen}
+        options={{
+          headerTitle:"Pick a Time Slot"
         }}
       />
       <Stack.Screen

@@ -16,7 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const SelectVehicle = ({ navigation,route }) => {
   const {name,parkingLot,address,id} = route.params 
-  const [checked, setChecked] = useState("first");
+  const [checked, setChecked] = useState(1);
   const [data, setData] = useState([]);
   const [info, setInfo] = useState();
   useEffect(() => {

@@ -1,26 +1,58 @@
 import { StyleSheet, Text, View,TextInput,Button } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     doc,
     setDoc,
     getDocs,
     collection,
     deleteDoc,
+    getDoc
   } from "firebase/firestore";
   import { db } from "./config";
+import HomeScreen from './HomeScreen';
 
 const AddVehicle = ({navigation,route}) => {
   const {id} = route.params
+  const [radio,setRadio] = useState(0)
   const [vehicleName, setVehicleName] = useState("");
   const [licensePlate, setLicensePlate] = useState("");
   const [vehicles,setVehicles] =useState([])
   const [image,setImage] = useState("https://i.fbcd.co/products/resized/resized-1500-1000/1d83834ba8fa525bbff21a3f201cc93870cf12a7715bd8cf12a426fc71c15005.jpg")
+  useEffect(()=>{
+    fetchData()
+    // console.log(vehicles);
+    // console.log(radio);
+  },[])
+  const fetchData = async () => {
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    let temp = []
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data().vehicles);
+      const items = docSnap.data().vehicles
+      if (items == undefined){
+        null
+      }
+      else{
+        items.forEach((i)=>{
+          temp.push(i)
+          setRadio(i.radio)
+        })
+      }
+      
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    setVehicles(temp)
+  };
 const store = async () => {
+    addToVehicles()
     const docRef = doc(db, "customers",id)
     await setDoc(docRef, {vehicles:vehicles },{merge:true} )
         .then(() => { console.log('data submitted')
         setVehicles([])
-        readAll()
+        // navigation.replace("HomeScreen",{id:id})
     })
         .catch((error) => { console.log(error.message) })
 
@@ -28,10 +60,12 @@ const store = async () => {
 const addToVehicles = () => {
   let temp = [...vehicles]
   temp.push({
-    vehicleName:vehicleName,
+    name:vehicleName,
     licensePlate:licensePlate,
-    image:image
+    icon:image,
+    radio:radio+1
   })
+  console.log(temp);
   setVehicleName("")
   setLicensePlate("")
   setVehicles(temp)
@@ -52,8 +86,8 @@ const addToVehicles = () => {
         onChangeText={(text) => setLicensePlate(text)}
         value={licensePlate}
       />
-      <Button title="Add Vehicle" onPress={addToVehicles} />
-      <Button title="Click when done adding Vehicles" onPress={store} />
+      {/* <Button title="Add Vehicle" onPress={addToVehicles} /> */}
+      <Button title="Add Vehicle" onPress={store} />
     </View>
   )
 }

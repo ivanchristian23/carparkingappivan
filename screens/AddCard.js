@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Button, TextInput } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { db } from "./config";
@@ -9,18 +9,45 @@ import {
   getDocs,
   collection,
   deleteDoc,
+  getDoc
 } from "firebase/firestore";
 
 const AddCard = ({ navigation,route }) => {
   const {id} = route.params
+  const [radio,setRadio] = useState(0)
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCVV] = useState("");
+  const [cards,setCards] = useState([])
+  const fetchData = async () => {
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    let temp = []
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data().vehicles);
+      const items = docSnap.data().cards
+      if (items == undefined){
+        null
+      }
+      else{
+        items.forEach((i)=>{
+          temp.push(i)
+          setRadio(i.radio)
+        })
+      }
+      
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    setCards(temp)
+  };
   const handlePayment = async () => {
+    addToCards()
     const docRef = doc(db, "customers", id);
     await setDoc(
       docRef,
-      {card:{cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv}},
+      {cards:cards},
       { merge: true }
     )
       .then(() => {
@@ -35,6 +62,15 @@ const AddCard = ({ navigation,route }) => {
         console.log(error.message);
       });
   };
+  const addToCards = () => {
+    let temp = [...cards]
+    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv})
+    // console.log(temp);
+    setCards(temp)   
+  }
+  useEffect(()=>{
+    // fetchData()
+  },[])
   return (
     <SafeAreaView>
       <View style={{ justifyContent: "center", alignItems: "center" }}>

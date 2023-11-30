@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "@rneui/base";
 import { Feather } from "react-native-vector-icons";
 import {
@@ -11,20 +11,28 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "./config"
-const AccountScreen = ({ route }) => {
+const AccountScreen = ({ navigation,route }) => {
   const {id} = route.params
+  const [info,setInfo] = useState([])
+  const [name,setName] = useState("")
   useEffect(()=>{
     read()
   },[])
   const read = async () => {
     const docRef = doc(db, "customers", id);
     const docSnap = await getDoc(docRef);
+    let temp = []
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
+      temp.push(docSnap.data())
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
+    setInfo(temp)
+    temp.forEach((i)=>{
+      setName(i.name)
+    })
   };
 
   return (
@@ -37,9 +45,9 @@ const AccountScreen = ({ route }) => {
           source={require("../assets/parking.jpg")}
         />
         <Text />
-        <Text>Adam Marcus</Text>
-        <Text />
-        <Text>adam@yahoo.com</Text>
+        <Text style={styles.textName}>{name}</Text>
+        {/* <Text /> */}
+        <Text style={styles.textEmail}>{id}</Text>
       </View>
       <TouchableOpacity>
       <View style={styles.icons}>
@@ -48,14 +56,14 @@ const AccountScreen = ({ route }) => {
       </View>
       </TouchableOpacity>
       <Text/>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("AddCard",{id:id})}>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Add Card</Text>
       </View>
       </TouchableOpacity>
       <Text />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("AddVehicle",{id:id})}>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Add Vehicle</Text>
@@ -69,7 +77,7 @@ const AccountScreen = ({ route }) => {
       </View>
       </TouchableOpacity>
       <Text />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.replace("LoginScreen")}>
       <View style={styles.icons}>
         <Feather name="user" size={40} />
         <Text style={styles.name}>Logout</Text>
@@ -92,5 +100,13 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     fontSize: 20,
     paddingLeft: 10,
+  },
+  textName: {
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  textEmail: {
+    fontSize: 17,
+    color: "grey",
   },
 });
