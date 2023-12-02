@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, View,Image } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import {
   doc,
@@ -52,7 +52,7 @@ const RegisterScreen = ({ navigation }) => {
         setName("");
         setAddress("");
         setMobile("");
-        navigation.navigate("AddVehicle", {
+        navigation.navigate("AddVehicleAccountScreen", {
           id: email
         });
       })
@@ -60,9 +60,12 @@ const RegisterScreen = ({ navigation }) => {
         console.log(error.message);
       });
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Become a Member Now</Text>
+      <Image source={require('../assets/registerscreen.png')} style={{borderRadius:50}}/>
+      <Text/>
       <TextInput
         style={styles.input}
         autoCapitalize={false}
@@ -138,5 +141,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
+    borderRadius:10
   },
 });

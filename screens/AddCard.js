@@ -13,8 +13,9 @@ import {
 } from "firebase/firestore";
 
 const AddCard = ({ navigation,route }) => {
-  const {id} = route.params
+  const {id,parkingname,parkingLot,address,vehicleName,startDate,startTime,endTime} = route.params
   const [radio,setRadio] = useState(0)
+  const [image,setImage] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/772px-Mastercard-logo.svg.png")
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCVV] = useState("");
@@ -26,8 +27,8 @@ const AddCard = ({ navigation,route }) => {
     if (docSnap.exists()) {
       // console.log("Document data:", docSnap.data().vehicles);
       const items = docSnap.data().cards
-      if (items == undefined){
-        null
+      if (items == undefined || items == null){
+        console.log('Creating a new Array');
       }
       else{
         items.forEach((i)=>{
@@ -43,33 +44,31 @@ const AddCard = ({ navigation,route }) => {
     setCards(temp)
   };
   const handlePayment = async () => {
-    addToCards()
+    let temp = [...cards]
+    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv,name:cardNumber.substring(cardNumber.length - 4),icon:image})
+    console.log(temp);
+    setCards(temp)   
     const docRef = doc(db, "customers", id);
     await setDoc(
       docRef,
-      {cards:cards},
+      {cards:temp},
       { merge: true }
-    )
+    ) 
       .then(() => {
         console.log("data submitted");
         setCardNumber("");
         setExpiryDate("");
         setCVV("");
-        alert("Payment successful!");
-        navigation.replace("PaymentMethod");
+        alert("Card has been added succesfully!");
+        navigation.replace("PaymentMethod",{parkingname:parkingname,parkingLot:parkingLot,address:address,id:id,vehicleName:vehicleName,startDate:startDate,startTime:startTime,endTime:endTime});
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
-  const addToCards = () => {
-    let temp = [...cards]
-    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv})
-    // console.log(temp);
-    setCards(temp)   
-  }
+
   useEffect(()=>{
-    // fetchData()
+    fetchData()
   },[])
   return (
     <SafeAreaView>
@@ -105,7 +104,7 @@ const AddCard = ({ navigation,route }) => {
           onChangeText={setCVV}
         />
 
-        <Button title="Pay Now" onPress={handlePayment} />
+        <Button title="Add Card" onPress={handlePayment} />
       </View>
     </SafeAreaView>
   );

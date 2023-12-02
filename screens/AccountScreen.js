@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@rneui/base";
-import { Feather } from "react-native-vector-icons";
+import { Feather,FontAwesome,AntDesign,SimpleLineIcons } from "react-native-vector-icons";
 import {
   doc,
   getDoc,
@@ -56,30 +56,30 @@ const AccountScreen = ({ navigation,route }) => {
       </View>
       </TouchableOpacity>
       <Text/>
-      <TouchableOpacity onPress={()=> navigation.navigate("AddCard",{id:id})}>
+      <TouchableOpacity onPress={()=> navigation.navigate("AddCardAccountScreen",{id:id})}>
       <View style={styles.icons}>
-        <Feather name="user" size={40} />
+        <FontAwesome name="credit-card" size={40} />
         <Text style={styles.name}>Add Card</Text>
       </View>
       </TouchableOpacity>
       <Text />
-      <TouchableOpacity onPress={()=> navigation.navigate("AddVehicle",{id:id})}>
+      <TouchableOpacity onPress={()=> navigation.navigate("AddVehicleAccountScreen",{id:id})}>
       <View style={styles.icons}>
-        <Feather name="user" size={40} />
+        <AntDesign name="car" size={40} />
         <Text style={styles.name}>Add Vehicle</Text>
       </View>
       </TouchableOpacity>
       <Text />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("HelpPage")}>
       <View style={styles.icons}>
-        <Feather name="user" size={40} />
+        <Feather name="help-circle" size={40} />
         <Text style={styles.name}>Help</Text>
       </View>
       </TouchableOpacity>
       <Text />
       <TouchableOpacity onPress={()=> navigation.replace("LoginScreen")}>
       <View style={styles.icons}>
-        <Feather name="user" size={40} />
+        <SimpleLineIcons name="logout" size={40} />
         <Text style={styles.name}>Logout</Text>
       </View>
       </TouchableOpacity>

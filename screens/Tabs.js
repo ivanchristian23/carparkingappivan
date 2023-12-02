@@ -4,8 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
 import BookingScreen from './BookingScreen';
 import AccountScreen from './AccountScreen';
-import {FontAwesome } from 'react-native-vector-icons'
+import {FontAwesome, Feather } from 'react-native-vector-icons'
 import Drawers from './Drawers';
+import HelpPage from './HelpPage';
 const Tab = createBottomTabNavigator();
 const Tabs = ({navigation,route}) => {
   const {id} = route.params
@@ -28,6 +29,11 @@ const Tabs = ({navigation,route}) => {
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="user" color={color} size={size} />
       ),headerTitle:"Profile"}}/>
+      <Tab.Screen name="HelpPage" component={HelpPage} options={{
+      tabBarLabel: 'Help',
+      tabBarIcon: ({ color, size }) => (
+        <Feather name="help-circle" color={color} size={size} />
+      ),headerTitle:"Get to Know Us"}}/>
     </Tab.Navigator>
   )
 }

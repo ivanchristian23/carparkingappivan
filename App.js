@@ -17,11 +17,15 @@ import AddCard from "./screens/AddCard";
 import PickParking from "./screens/PickParking";
 import AdminNavigator from './adminscreens/AdminNavigator';
 import TimePickerScreen from './screens/TimePickerScreen';
+import AddCardAccountScreen from './drawerScreens/AddCardAccountScreen';
+import AddVehicleAccountScreen from './drawerScreens/AddVehicleAccountScreen';
+import ParkingTicket from './screens/ParkingTicket';
+import HelpPage from './screens/HelpPage';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="TimePickerScreen">
+      <Stack.Navigator initialRouteName="LoginScreen">
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -33,7 +37,7 @@ export default function App() {
           name="RegisterScreen"
           component={RegisterScreen}
           options={{
-            headerShown: false,
+            headerTitle:'Register Now'
           }}
         />
         <Stack.Screen
@@ -95,6 +99,13 @@ export default function App() {
         }}
       />
       <Stack.Screen
+        name="ParkingTicket"
+        component={ParkingTicket}
+        options={{
+          headerTitle:"Parking Ticket"
+        }}
+      />
+      <Stack.Screen
         name="AddCard"
         component={AddCard}
         options={{
@@ -108,7 +119,27 @@ export default function App() {
           headerShown: false,
         }}
       />
-      
+      <Stack.Screen
+        name="AddCardAccountScreen"
+        component={AddCardAccountScreen}
+        options={{
+          headerTitle:"Enter Card Details"
+        }}
+      />
+      <Stack.Screen
+        name="AddVehicleAccountScreen"
+        component={AddVehicleAccountScreen}
+        options={{
+          headerTitle:"Enter Vehicle Details"
+        }}
+      />
+      {/* <Stack.Screen
+        name="HelpPage"
+        component={HelpPage}
+        options={{
+          headerTitle:"Get to Know us"
+        }}
+      /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

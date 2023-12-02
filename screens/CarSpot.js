@@ -7,7 +7,8 @@ const CarSpot = (prop) => {
   return (
     <View>
       <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-        <TouchableOpacity onPress={prop.select}>
+        <TouchableOpacity onPress={prop.select}  > 
+        {/* disabled={!prop.st.disabled} */}
           <View style={styles.longbox}>
             {
                 prop.st.available?<Text>{prop.st.parkingLot}</Text>

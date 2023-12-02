@@ -11,6 +11,7 @@ import { Dimensions } from "react-native";
 import { Button } from "@rneui/themed";
 import { Feather } from "react-native-vector-icons";
 import { ActivityIndicator } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -98,7 +99,7 @@ const HomeScreen = ({ navigation,route }) => {
                 <ActivityIndicator size="large" color="#00ff00" />
               ) : (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("DetailScreen")}
+                  onPress={() => navigation.navigate("DetailScreen",{address:item.address, distance:item.distance, picture:item.picture, name:item.name, status:item.status, vacant:item.vacant,id1:id,payment:item.payment})}
                 >
                   <View style={styles.itemContainer}>
                     <Image
@@ -116,6 +117,7 @@ const HomeScreen = ({ navigation,route }) => {
           />
         </View>
       ) : (
+        <ScrollView>
         <View style={styles.container}>
           <TextInput
             placeholder="Search.."
@@ -129,15 +131,18 @@ const HomeScreen = ({ navigation,route }) => {
           <Text></Text>
           <Text style={styles.mainText}>Popular Parking Places</Text>
           <Text />
+          
           <FlatList
           data={popularPlaces}
-          keyExtractor={(item)=> item.parking}
+          nestedScrollEnabled={false}
+          keyExtractor={(item)=> item.name}
+          scrollEnabled={false}
           renderItem={({item}) =>
           isLoading ? (
             <ActivityIndicator size="large" color="#00ff00" />
           ) :
           <View style={styles.container}>
-              <Text style={styles.TitleText}>{item.parking}</Text>
+              <Text style={styles.TitleText}>{item.name}</Text>
               <Text />
               <Image
                 style={styles.mainImage}
@@ -147,7 +152,7 @@ const HomeScreen = ({ navigation,route }) => {
               <View style={styles.icons}>
                 <View style={styles.iconText}>
                   <Text style={{ alignSelf: "center", color: "darkblue" }}>
-                    {item.distance}
+                    {item.distance} Km
                   </Text>
                 </View>
                 <View style={styles.iconText}>
@@ -162,12 +167,15 @@ const HomeScreen = ({ navigation,route }) => {
                 </View>
               </View>
               <Text />
-              <Button title="Book Now" containerStyle={{ borderRadius: 5 }} onPress={()=> navigation.navigate("DetailScreen",{address:item.address, distance:item.distance, picture:item.picture, name:item.name, status:item.status, vacant:item.vacant,id1:id})} />
+              <Button title="Book Now" containerStyle={{ borderRadius: 5 }} onPress={()=> navigation.navigate("DetailScreen",{address:item.address, distance:item.distance, picture:item.picture, name:item.name, status:item.status, vacant:item.vacant,id1:id,payment:item.payment})} />
             </View>
         }
           />
         </View>
+        </ScrollView>
       )}
+      
+      
     </SafeAreaView>
   );
 };
@@ -218,7 +226,7 @@ const styles = StyleSheet.create({
   },
   TitleText: {
     fontSize: 17,
-    paddingLeft: 10,
+    paddingLeft: 5,
   },
   icons: {
     flexDirection: "row",

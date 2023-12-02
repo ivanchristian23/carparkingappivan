@@ -10,20 +10,32 @@ const BookingScreen = ({ route }) => {
   const {id} = route.params
   const [show,setShow] = useState(false)
   const [data, setData] = useState([])
+  const [ongoing,setOngoing] = useState([])
+  const [completed,setCompleted] = useState([])
   const fetchData = async () => {
     const docRef = doc(db, "customers", id);
     const docSnap = await getDoc(docRef);
     let temp = []
+    let tempOngoing = []
+    let tempCompleted = []
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data().bookings);
       const items = docSnap.data().bookings
       items.forEach((i)=>{
         temp.push(i)
+        if (i.status == 'Ongoing'){
+          tempOngoing.push(i)
+        }
+        else{
+          tempCompleted.push(i)
+        }
       })
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
+    setOngoing(tempOngoing)
+    setCompleted(tempCompleted)
     setData(temp)
   };
   useEffect(() => {
@@ -32,12 +44,12 @@ const BookingScreen = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerIcons}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> setShow(false)}>
           <View style={styles.icon}>
             <Text style={{ alignSelf: 'center' }}>Ongoing</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> setShow(true)}>
           <View style={styles.icon}>
             <Text style={{ alignSelf: 'center' }}>Completed</Text>
           </View>
@@ -49,9 +61,9 @@ const BookingScreen = ({ route }) => {
         </TouchableOpacity> */}
 
       </View>
-      <Card height={"38%"} width={'90%'} containerStyle={{ borderRadius: 10 }}>
+      <Card height={"38.5%"} width={'90%'} containerStyle={{ borderRadius: 10 }}>
       <FlatList
-        data={data}
+        data={show? completed: ongoing }
         ItemSeparatorComponent={() => {
           <Text></Text>;
         }}

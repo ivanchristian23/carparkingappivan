@@ -1,12 +1,73 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Card,Avatar } from "@rneui/themed";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
+import { Button } from "@rneui/base";
+import { getDocs, collection,getDoc,doc,setDoc } from "firebase/firestore";
+import { db } from "./config";
 const PaymentDetails = ({navigation,route}) => {
-  const {name,icon,parkingname,address,parkingLot,id,vehicleName} = route.params
+  const {paymentName,paymenticon,parkingname,address,parkingLot,id,vehicleName,startDate,startTime,endTime,payment} = route.params
+  const [bookings,setBookings] = useState([])
+  const [status,setStatus] = useState("Ongoing")
+  useEffect(() => {
+    fetchData();
+    // console.log(vehicles);
+    // console.log(radio);
+  }, []);
+  const fetchData = async () => {
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    let temp = [];
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data().vehicles);
+      const items = docSnap.data().bookings;
+      if (items == undefined || items == null) {
+        console.log("Creating a new Array");
+      } else {
+        items.forEach((i) => {
+          temp.push(i);
+        });
+      }
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    setBookings(temp);
+  };
+  const store = async () => {
+    let temp = [...bookings];
+    temp.push({
+      address: address,
+      parkingname: parkingname,
+      // picture: picture,
+      status: status,
+      // payment:payment
+    });
+    console.log(temp);
+    setBookings(temp)
+    const docRef = doc(db, "customers", id);
+    await setDoc(docRef, { bookings: temp }, { merge: true })
+      .then(() => {
+        console.log("data submitted");
+        setBookings([]);
+        navigation.replace("ParkingTicket", {
+          parkingname: parkingname,
+          parkingLot: parkingLot,
+          address: address,
+          id: id,
+          startDate: startDate,
+          startTime: startTime,
+          endTime: endTime,
+          payment:payment
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <View>
-      <Card width={"90%"} height={"50%"} containerStyle={{ borderRadius: 4 }}>
+      <Card width={"90%"} height={"45%"} containerStyle={{ borderRadius: 4 }}>
         <View style={styles.details}>
           <Text style={styles.title}>Parking Area</Text>
           <Text style={styles.content}>{parkingname}</Text>
@@ -29,17 +90,17 @@ const PaymentDetails = ({navigation,route}) => {
         <Text/>
         <View style={styles.details}>
           <Text style={styles.title}>Date</Text>
-          <Text style={styles.content}>January 16,2024</Text>
+          <Text style={styles.content}>{startDate}</Text>
         </View>
         <Text/>
-        <View style={styles.details}>
+        {/* <View style={styles.details}>
           <Text style={styles.title}>Duration</Text>
-          <Text style={styles.content}>2</Text>
-        </View>
-        <Text/>
+          <Text style={styles.content}>{duration}</Text>
+        </View> */}
+        {/* <Text/> */}
         <View style={styles.details}>
           <Text style={styles.title}>Hours</Text>
-          <Text style={styles.content}>09:00AM - 13:00PM</Text>
+          <Text style={styles.content}>{startTime} - {endTime}</Text>
         </View>
       </Card>
       <Card
@@ -50,7 +111,7 @@ const PaymentDetails = ({navigation,route}) => {
         <View>
         <View style={styles.details}>
           <Text style={styles.title}>Amount</Text>
-          <Text style={styles.content}>2 Riyals</Text>
+          <Text style={styles.content}>{payment} Riyals</Text>
         </View>
         <Text/>
         <View style={styles.details}>
@@ -60,7 +121,7 @@ const PaymentDetails = ({navigation,route}) => {
         <Text/>
         <View style={styles.details}>
           <Text style={styles.title}>Total</Text>
-          <Text style={styles.content}>3 Riyals</Text>
+          <Text style={styles.content}>{payment+1} Riyals</Text>
         </View>
         </View>
       </Card>
@@ -70,10 +131,16 @@ const PaymentDetails = ({navigation,route}) => {
         containerStyle={{ borderRadius: 4 }} 
       >
         <View style={styles.details}>
-          <Avatar rounded source={{ uri: icon }} size="medium" />
-          <Text style={{paddingTop:10}}>{name}</Text>
+          <Avatar rounded source={{ uri: paymenticon }} size="medium" />
+          <Text style={{paddingTop:10}}>{paymentName}</Text>
           </View>
       </Card>
+      <Button
+        title="Confirm"
+        color={"darkblue"}
+        containerStyle={{ borderRadius: 5}}
+        onPress={store}
+      />
     </View>
   );
 };

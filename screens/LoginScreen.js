@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Image
 } from "react-native";
 import { auth } from "./config";
 
@@ -34,8 +35,9 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Parking App</Text>
-
+      <Text style={styles.title}>Welcome</Text>
+      <Image source={require('../assets/loginscreen.png')} style={{borderRadius:50}}/>
+      <Text/>
       <TextInput
         autoCapitalize={false}
         autoCorrect={false}
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
     width: "100%",
+    borderRadius:10
   },
   button: {
     backgroundColor: "blue",
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   regText: {
-    color: "black",
+    color: "darkblue",
     fontSize: 16,
   },
 });

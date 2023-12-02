@@ -13,6 +13,8 @@ import AddVehicle from "./AddVehicle";
 import AddCard from "./AddCard";
 import SecurityScreen from "../AdditionalScreens/SecurityScreen"
 import NotificationScreen from "../AdditionalScreens/SecurityScreen"
+import AddCardAccountScreen from "../drawerScreens/AddCardAccountScreen";
+import AddVehicleAccountScreen from "../drawerScreens/AddVehicleAccountScreen";
 const Drawer = createDrawerNavigator();
 const Drawers = ({navigation,route}) => {
   const {id} = route.params
@@ -38,28 +40,29 @@ const Drawers = ({navigation,route}) => {
         initialParams={{id:id}}
       />
       <Drawer.Screen
-        name="AddVehicle"
-        component={AddVehicle}
-        screenOptions={{
-          drawerPosition: "left",
-          headerLeft: () => <DrawerToggleButton />,
-          headerRight: false,
-        }}
-        initialParams={{id:id}}
-      />
-      <Drawer.Screen
-        name="AddCard"
-        component={AddCard}
-        screenOptions={{
-          drawerPosition: "left",
-          headerLeft: () => <DrawerToggleButton />,
-          headerRight: false,
-        }}
-        initialParams={{id:id}}
-      />
-      <Drawer.Screen
         name="AccountScreen"
         component={AccountScreen}
+        screenOptions={{
+          drawerPosition: "left",
+          headerLeft: () => <DrawerToggleButton />,
+          headerRight: false,
+        }}
+        initialParams={{id:id}}
+      />
+      
+      <Drawer.Screen
+        name="AddVehicleAccountScreen"
+        component={AddVehicleAccountScreen}
+        screenOptions={{
+          drawerPosition: "left",
+          headerLeft: () => <DrawerToggleButton />,
+          headerRight: false,
+        }}
+        initialParams={{id:id}}
+      />
+      <Drawer.Screen
+        name="AddCardAccountScreen"
+        component={AddCardAccountScreen}
         screenOptions={{
           drawerPosition: "left",
           headerLeft: () => <DrawerToggleButton />,

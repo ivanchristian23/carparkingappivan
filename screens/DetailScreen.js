@@ -8,7 +8,7 @@ import { Button,Card } from "@rneui/themed";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const DetailScreen = ({ navigation, route }) => {
-  const { address, distance, picture, name, status, vacant,id1 } = route.params;
+  const { address, distance, picture, name, status, vacant,id1,payment } = route.params;
   useEffect(() => {
     // do something
   }, []);
@@ -50,13 +50,10 @@ const DetailScreen = ({ navigation, route }) => {
       <Text/>
       <Text/>
       
-      <Card width={"90%"} height={'10%'} containerStyle={{borderRadius:5,backgroundColor:'lightblue'}}> 
-          <Text style={{alignSelf:"center",fontSize:17,fontWeight: "600",}}>2 QR</Text>
+      <Card width={"90%"} height={'15%'} containerStyle={{borderRadius:5,backgroundColor:'lightblue'}}> 
+          <Text style={{alignSelf:"center",fontSize:17,fontWeight: "600",marginTop:20,}}>{payment} QR</Text>
           <Text style={{alignSelf:"center",fontSize:13}}>per Hour</Text>
       </Card>
-      <Text/>
-      <Text/>
-      <Text/>
       <Text/>
       <Text/>
       <Text/>
