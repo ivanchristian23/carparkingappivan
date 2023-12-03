@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View,Image } from "react-native";
+import React, { useState,useEffect } from "react";
 import { Card,Avatar } from "@rneui/themed";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 import { Button } from "@rneui/base";
 import { getDocs, collection,getDoc,doc,setDoc } from "firebase/firestore";
 import { db } from "./config";
 const PaymentDetails = ({navigation,route}) => {
-  const {paymentName,paymenticon,parkingname,address,parkingLot,id,vehicleName,startDate,startTime,endTime,payment} = route.params
+  const {paymentName,paymentIcon,parkingname,address,parkingLot,id,vehicleName,startDate,startTime,endTime,payment} = route.params
   const [bookings,setBookings] = useState([])
   const [status,setStatus] = useState("Ongoing")
   useEffect(() => {
@@ -66,8 +66,8 @@ const PaymentDetails = ({navigation,route}) => {
       });
   };
   return (
-    <View>
-      <Card width={"90%"} height={"45%"} containerStyle={{ borderRadius: 4 }}>
+    <View style={styles.container}>
+      <Card width={"90%"} height={"50%"} containerStyle={{ borderRadius: 4 }}>
         <View style={styles.details}>
           <Text style={styles.title}>Parking Area</Text>
           <Text style={styles.content}>{parkingname}</Text>
@@ -102,6 +102,8 @@ const PaymentDetails = ({navigation,route}) => {
           <Text style={styles.title}>Hours</Text>
           <Text style={styles.content}>{startTime} - {endTime}</Text>
         </View>
+        <Text/>
+        <Image source={require('../assets/thankyou.jpeg')} style={{width:300,height:125,alignSelf:"center"}}/>
       </Card>
       <Card
         width={"90%"}
@@ -121,7 +123,7 @@ const PaymentDetails = ({navigation,route}) => {
         <Text/>
         <View style={styles.details}>
           <Text style={styles.title}>Total</Text>
-          <Text style={styles.content}>{payment+1} Riyals</Text>
+          <Text style={styles.content}>{Number(payment)+1} Riyals</Text>
         </View>
         </View>
       </Card>
@@ -131,15 +133,18 @@ const PaymentDetails = ({navigation,route}) => {
         containerStyle={{ borderRadius: 4 }} 
       >
         <View style={styles.details}>
-          <Avatar rounded source={{ uri: paymenticon }} size="medium" />
+          <Avatar rounded source={{ uri: paymentIcon }} size="medium" />
           <Text style={{paddingTop:10}}>{paymentName}</Text>
           </View>
       </Card>
+      <Text/>
+      <Text/>
       <Button
         title="Confirm"
         color={"darkblue"}
-        containerStyle={{ borderRadius: 5}}
+        containerStyle={{ borderRadius: 10,width:'90%',alignSelf:"center"}}
         onPress={store}
+        
       />
     </View>
   );
@@ -161,4 +166,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "gray",
   },
+  container:{
+    marginHorizontal:10
+  }
 });

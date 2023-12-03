@@ -98,9 +98,17 @@ const TimePickerScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+      <DateTimePicker
+            testID="startDatePicker"
+            value={startDate}
+            mode="date"
+            is24Hour={true}
+            display="inline"
+            onChange={onChangeStartDate}
+          />
+      {/* <View style={styles.buttonContainer}>
         <Button onPress={showStartDatepicker} title="Pick start date" />
-      </View>
+      </View> */}
       <View style={{ flexDirection: "row" }}>
         <View style={styles.buttonContainer}>
           <Button onPress={showStartTimepicker} title="Pick start time" />
@@ -114,23 +122,16 @@ const TimePickerScreen = ({ route, navigation }) => {
       </View>
 
       <View style={styles.dateTimeContainer}>
-        {showStartDatePicker && (
-          <DateTimePicker
-            testID="startDatePicker"
-            value={startDate}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onChangeStartDate}
-          />
-        )}
+        {/* {showStartDatePicker && ( */}
+          
+        {/* )} */}
         {showStartTimePicker && (
           <DateTimePicker
             testID="startTimePicker"
             value={startTime}
             mode="time"
             is24Hour={true}
-            display="spinner"
+            display="inline"
             onChange={onChangeStartTime}
           />
         )}
@@ -150,7 +151,7 @@ const TimePickerScreen = ({ route, navigation }) => {
             value={endTime}
             mode="time"
             is24Hour={true}
-            display="default"
+            display="spinner"
             minuteInterval={30}
             onChange={onChangeEndTime}
           />

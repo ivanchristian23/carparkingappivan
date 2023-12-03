@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 
 const AddCard = ({ navigation,route }) => {
-  const {id,parkingname,parkingLot,address,vehicleName,startDate,startTime,endTime} = route.params
+  const {id,parkingname,parkingLot,address,vehicleName,startDate,startTime,endTime,cardData} = route.params
   const [radio,setRadio] = useState(0)
   const [image,setImage] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/772px-Mastercard-logo.svg.png")
   const [cardNumber, setCardNumber] = useState("");
@@ -45,7 +45,7 @@ const AddCard = ({ navigation,route }) => {
   };
   const handlePayment = async () => {
     let temp = [...cards]
-    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv,name:cardNumber.substring(cardNumber.length - 4),icon:image})
+    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv,name:'****'+cardNumber.substring(cardNumber.length - 4),icon:image})
     console.log(temp);
     setCards(temp)   
     const docRef = doc(db, "customers", id);
@@ -60,7 +60,7 @@ const AddCard = ({ navigation,route }) => {
         setExpiryDate("");
         setCVV("");
         alert("Card has been added succesfully!");
-        navigation.replace("PaymentMethod",{parkingname:parkingname,parkingLot:parkingLot,address:address,id:id,vehicleName:vehicleName,startDate:startDate,startTime:startTime,endTime:endTime});
+        navigation.replace("PaymentMethod",{parkingname:parkingname,parkingLot:parkingLot,address:address,id:id,vehicleName:vehicleName,startDate:startDate,startTime:startTime,endTime:endTime,data:cards});
       })
       .catch((error) => {
         console.log(error.message);

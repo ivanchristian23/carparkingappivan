@@ -46,6 +46,9 @@ const RegisterScreen = ({ navigation }) => {
       name: name,
       address: address,
       mobile: mobile,
+      vehicles:[],
+      cards:[{name:'Paypal',radio:1,icon:'https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_1280.png'},{name:'Google',radio:2,icon:'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png'}],
+      bookings:[]
     })
       .then(() => {
         console.log("data submitted");

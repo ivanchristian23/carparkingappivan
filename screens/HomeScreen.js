@@ -94,6 +94,7 @@ const HomeScreen = ({ navigation,route }) => {
           <FlatList
             data={data}
             keyExtractor={(item) => item.name}
+            
             renderItem={({ item }) =>
               isLoading ? (
                 <ActivityIndicator size="large" color="#00ff00" />
@@ -135,6 +136,7 @@ const HomeScreen = ({ navigation,route }) => {
           <FlatList
           data={popularPlaces}
           nestedScrollEnabled={false}
+          ItemSeparatorComponent={<Text></Text>}
           keyExtractor={(item)=> item.name}
           scrollEnabled={false}
           renderItem={({item}) =>

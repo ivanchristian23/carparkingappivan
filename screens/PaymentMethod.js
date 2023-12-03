@@ -2,27 +2,49 @@ import { StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-nativ
 import React, { useState } from "react";
 import { Card, Avatar,Button } from "@rneui/themed";
 import { useEffect } from "react";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection,getDoc,doc } from "firebase/firestore";
 import { db } from "./config";
 import { FlatList } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 const PaymentMethod = ({navigation,route}) => {
   const {name,parkingLot,address,id,vehicleName,startDate,startTime,endTime,payment} = route.params 
-  const [checked, setChecked] = useState('first');
+  const [checked, setChecked] = useState(1);
   const [data, setData] = useState([]);
   const [info, setInfo] = useState()
   useEffect(() => {
     fetchData();
     setInfo({"icon": "https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_1280.png", "name": "Paypal"})
-  }, []);
+  }, [route.params?.data]);
+  // const fetchData = async () => {
+  //   const docs = await getDocs(collection(db, "paymentMethods"));
+  //   let temp = [];
+  //   docs.forEach((doc) => {
+  //     temp.push(doc.data());
+  //   });
+  //   setData(temp);
+  // };
   const fetchData = async () => {
-    const docs = await getDocs(collection(db, "paymentMethods"));
-    let temp = [];
-    docs.forEach((doc) => {
-      temp.push(doc.data());
-    });
-    setData(temp);
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    let temp = []
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data().vehicles);
+      const items = docSnap.data().cards
+      if (items == undefined || items == null){
+        console.log('Creating a new Array');
+      }
+      else{
+        items.forEach((i)=>{
+          temp.push(i)
+        })
+      }
+      
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    setData(temp)
   };
 const HandleInfo= (radio,name,icon)=>{
   setChecked(radio)
@@ -54,7 +76,7 @@ const HandleInfo= (radio,name,icon)=>{
       />
       <Text/>
       <Card containerStyle={{ borderRadius: 4 }}>
-      <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("AddCard",{parkingname:name,parkingLot:parkingLot,address:address,id:id,vehicleName:vehicleName,startDate:startDate,startTime:startTime,endTime:endTime,payment:payment})}>
+      <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("AddCard",{parkingname:name,parkingLot:parkingLot,address:address,id:id,vehicleName:vehicleName,startDate:startDate,startTime:startTime,endTime:endTime,payment:payment,data:data})}>
         <Text style={styles.buttonText}>Add Card</Text>
       </TouchableOpacity>
       </Card>
