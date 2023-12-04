@@ -24,16 +24,17 @@ const Tabs = ({navigation,route}) => {
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="calendar-check-o" color={color} size={size} />
       ),}}/>
-      <Tab.Screen name="AccountScreen" component={AccountScreen} initialParams={{id:id}} options={{
-      tabBarLabel: 'Account',
-      tabBarIcon: ({ color, size }) => (
-        <FontAwesome name="user" color={color} size={size} />
-      ),headerTitle:"Profile"}}/>
       <Tab.Screen name="HelpPage" component={HelpPage} options={{
       tabBarLabel: 'Help',
       tabBarIcon: ({ color, size }) => (
         <Feather name="help-circle" color={color} size={size} />
       ),headerTitle:"Get to Know Us"}}/>
+      <Tab.Screen name="AccountScreen" component={AccountScreen} initialParams={{id:id}} options={{
+      tabBarLabel: 'Account',
+      tabBarIcon: ({ color, size }) => (
+        <FontAwesome name="user" color={color} size={size} />
+      ),headerTitle:"Profile"}}/>
+      
     </Tab.Navigator>
   )
 }

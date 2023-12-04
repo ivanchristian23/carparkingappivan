@@ -61,7 +61,7 @@ const BookingScreen = ({ route }) => {
         </TouchableOpacity> */}
 
       </View>
-      <Card height={"38.5%"} width={'90%'} containerStyle={{ borderRadius: 10 }}>
+      <Card height={"90%"} width={'90%'} containerStyle={{ borderRadius: 10 }}>
       <FlatList
         data={show? completed: ongoing }
         ItemSeparatorComponent={() => {

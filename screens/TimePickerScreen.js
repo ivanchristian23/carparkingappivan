@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 import { Button } from "@rneui/base";
 
 const TimePickerScreen = ({ route, navigation }) => {
-  const { name, address, parkingLot, id,payment } = route.params;
+  const { name, address, parkingLot, id,payment,picture } = route.params;
   const [nowdate, setnowDate] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
   const [startTime, setStartTime] = useState(new Date());
@@ -84,6 +84,7 @@ const TimePickerScreen = ({ route, navigation }) => {
       parkingLot: parkingLot,
       id: id,
       payment:payment,
+      picture:picture,
       startDate: startDate.toLocaleDateString(),
       startTime: startTime.toLocaleTimeString([], {
         hour: "2-digit",

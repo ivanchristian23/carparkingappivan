@@ -6,7 +6,7 @@ import { Button } from "@rneui/base";
 import { getDocs, collection,getDoc,doc,setDoc } from "firebase/firestore";
 import { db } from "./config";
 const PaymentDetails = ({navigation,route}) => {
-  const {paymentName,paymentIcon,parkingname,address,parkingLot,id,vehicleName,startDate,startTime,endTime,payment} = route.params
+  const {paymentName,paymentIcon,parkingname,address,parkingLot,id,vehicleName,startDate,startTime,endTime,payment,picture} = route.params
   const [bookings,setBookings] = useState([])
   const [status,setStatus] = useState("Ongoing")
   useEffect(() => {
@@ -39,9 +39,9 @@ const PaymentDetails = ({navigation,route}) => {
     temp.push({
       address: address,
       parkingname: parkingname,
-      // picture: picture,
+      picture: picture,
       status: status,
-      // payment:payment
+      payment:payment
     });
     console.log(temp);
     setBookings(temp)
@@ -59,7 +59,8 @@ const PaymentDetails = ({navigation,route}) => {
           startDate: startDate,
           startTime: startTime,
           endTime: endTime,
-          payment:payment
+          payment:payment,
+          picture:picture
         });
       })
       .catch((error) => {

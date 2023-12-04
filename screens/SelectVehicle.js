@@ -15,7 +15,7 @@ import { RadioButton } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SelectVehicle = ({ navigation,route }) => {
-  const {name,parkingLot,address,id,startDate,startTime,endTime,payment} = route.params 
+  const {name,parkingLot,address,id,startDate,startTime,endTime,payment,picture} = route.params 
   // const {dataUpdated,setdataUpdated} = useState(false)
   const [checked, setChecked] = useState(1);
   const [data, setData] = useState([]);
@@ -71,7 +71,7 @@ const SelectVehicle = ({ navigation,route }) => {
       <Card containerStyle={{ borderRadius: 4 }}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("AddVehicle",{name:name,parkingLot:parkingLot,address:address,id:id,startDate:startDate,startTime:startTime,endTime:endTime,payment:payment})}
+          onPress={() => navigation.navigate("AddVehicle",{name:name,parkingLot:parkingLot,address:address,id:id,startDate:startDate,startTime:startTime,endTime:endTime,payment:payment,picture:picture})}
         >
           <Text style={styles.buttonText}>Add Vehicle</Text>
         </TouchableOpacity>
@@ -80,7 +80,7 @@ const SelectVehicle = ({ navigation,route }) => {
       <Button
         title="Confirm"
         containerStyle={styles.button}
-        onPress={() => navigation.navigate("PaymentMethod",{name:name,parkingLot:parkingLot,address:address,id:id,vehicleName:info.name,startDate:startDate,startTime:startTime,endTime:endTime,payment:payment})}
+        onPress={() => navigation.navigate("PaymentMethod",{name:name,parkingLot:parkingLot,address:address,id:id,vehicleName:info.name,startDate:startDate,startTime:startTime,endTime:endTime,payment:payment,picture:picture})}
       />
       {/* vehicleName:info.name */}
     </SafeAreaView>
