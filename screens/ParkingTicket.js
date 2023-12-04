@@ -1,18 +1,34 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import { SafeAreaView, StyleSheet, Text, View,Image } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "@rneui/base";
 // import QRCode from "react-native-qrcode-svg";
+import { getDocs, collection,getDoc,doc } from "firebase/firestore";
+import { db } from "./config";
 
 const ParkingTicket = ({ navigation, route }) => {
   const {parkingname,address,parkingLot,id,vehicleName,startDate,startTime,endTime} = route.params
-  // useEffect(()=>{
+  const [data,setData] = useState({})
+  useEffect(()=>{
+    fetchData()
+  },[])
+  const fetchData = async () => {
+    const docRef = doc(db, "customers", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setData(docSnap.data())
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
 
-  // },[])
+  };
   return (
     <SafeAreaView>
       <Card width={"92%"} height={"95%"} containerStyle={{ borderRadius: 4 }}>
         <View style={{alignItems:"center" }}>
           {/* <QRCode value="salkjdhiowhdlksahd"  size={250}/> */}
+          <Image source={{uri: 'https://www.techopedia.com/wp-content/uploads/2023/03/aee977ce-f946-4451-8b9e-bba278ba5f13.png'}} style={{height:200,width:250}}/>
         </View>
         <Text/>
         <View style={styles.rowstyle}>
@@ -21,7 +37,7 @@ const ParkingTicket = ({ navigation, route }) => {
         </View>
         <Text/>
         <View style={styles.rowstyle}>
-        <Text style={styles.text}>Hi</Text>
+        <Text style={styles.text}>{data.name}</Text>
         <Text style={styles.text}>{vehicleName}</Text>
         </View>
         <Text/>
@@ -50,9 +66,10 @@ const ParkingTicket = ({ navigation, route }) => {
         </View>
         <Text/>
         <View style={styles.rowstyle}>
-        <Text style={styles.text}>Ivan</Text>
+        <Text style={styles.text}>{data.mobile}</Text>
         </View>
         <Text/>
+        
         <Button title="Confirm" color={'darkblue'} onPress={()=> navigation.replace("Tabs",{id:id})} containerStyle={{width:'80%',alignSelf:"center",paddingTop:10,borderRadius:5}}/>
       </Card>
 
@@ -69,7 +86,7 @@ const styles = StyleSheet.create({
 },
 rowstyle:{
   flexDirection:"row"
-  ,justifyContent:"space-evenly"
+  ,justifyContent:"space-between",
 },
 textTitle: {
   fontSize: 17,

@@ -88,7 +88,7 @@ export default function App() {
           name="PaymentMethod"
           component={PaymentMethod}
           options={{
-            headerTitle:"Choose a Payment Method"
+            headerTitle:"Payment Method"
           }}
         />
         <Stack.Screen

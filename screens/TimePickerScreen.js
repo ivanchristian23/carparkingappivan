@@ -152,7 +152,7 @@ const TimePickerScreen = ({ route, navigation }) => {
             mode="time"
             is24Hour={true}
             display="spinner"
-            minuteInterval={30}
+            // minuteInterval={30}
             onChange={onChangeEndTime}
           />
         )}

@@ -55,6 +55,7 @@ const PaymentDetails = ({navigation,route}) => {
           parkingLot: parkingLot,
           address: address,
           id: id,
+          vehicleName:vehicleName,
           startDate: startDate,
           startTime: startTime,
           endTime: endTime,
