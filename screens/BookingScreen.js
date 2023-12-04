@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   },
   image_right: {
     width: windowWidth / 4
-    , height: windowHeight / 11
+    , height: windowHeight / 11,
+    marginTop:20
   },
 })

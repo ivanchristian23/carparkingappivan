@@ -41,7 +41,8 @@ const PaymentDetails = ({navigation,route}) => {
       parkingname: parkingname,
       picture: picture,
       status: status,
-      payment:payment
+      payment:payment,
+      endTime:endTime
     });
     console.log(temp);
     setBookings(temp)

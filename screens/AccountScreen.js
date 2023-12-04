@@ -15,6 +15,7 @@ const AccountScreen = ({ navigation,route }) => {
   const {id} = route.params
   const [info,setInfo] = useState([])
   const [name,setName] = useState("")
+  const [data,setData] = useState({})
   useEffect(()=>{
     read()
   },[])
@@ -25,6 +26,7 @@ const AccountScreen = ({ navigation,route }) => {
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
       temp.push(docSnap.data())
+      setData(docSnap.data())
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
@@ -42,7 +44,7 @@ const AccountScreen = ({ navigation,route }) => {
         <Avatar
           size="xlarge"
           rounded
-          source={require("../assets/parking.jpg")}
+          source={{uri:data.avatar}}
         />
         <Text />
         <Text style={styles.textName}>{name}</Text>

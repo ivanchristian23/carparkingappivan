@@ -12,7 +12,7 @@ import AccountScreen from "./AccountScreen";
 import AddVehicle from "./AddVehicle";
 import AddCard from "./AddCard";
 import SecurityScreen from "../AdditionalScreens/SecurityScreen"
-import NotificationScreen from "../AdditionalScreens/SecurityScreen"
+import NotificationScreen from "../AdditionalScreens/NotificationScreen"
 import AddCardAccountScreen from "../drawerScreens/AddCardAccountScreen";
 import AddVehicleAccountScreen from "../drawerScreens/AddVehicleAccountScreen";
 const Drawer = createDrawerNavigator();
@@ -79,8 +79,9 @@ const Drawers = ({navigation,route}) => {
           headerLeft: () => <DrawerToggleButton />,
           headerRight: false,
         }}
+        initialParams={{id:id}}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="SecurityScreen"
         component={SecurityScreen}
         screenOptions={{
@@ -88,7 +89,7 @@ const Drawers = ({navigation,route}) => {
           headerLeft: () => <DrawerToggleButton />,
           headerRight: false,
         }}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };

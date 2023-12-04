@@ -26,6 +26,7 @@ const AddCardAccountScreen = ({ navigation,route }) => {
     let temp = []
     if (docSnap.exists()) {
       // console.log("Document data:", docSnap.data().vehicles);
+      const items = docSnap.data().cards
       if (items == undefined || items == null){
         console.log('Creating a new Array');
       }
@@ -44,7 +45,7 @@ const AddCardAccountScreen = ({ navigation,route }) => {
   };
   const handlePayment = async () => {
     let temp = [...cards]
-    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv,name:cardNumber.substring(cardNumber.length - 4),icon:image})
+    temp.push({cardNumber:cardNumber,expiryDate:expiryDate,cvv:cvv,name:'****'+cardNumber.substring(cardNumber.length - 4),icon:image})
     console.log(temp);
     setCards(temp)
     const docRef = doc(db, "customers", id);
