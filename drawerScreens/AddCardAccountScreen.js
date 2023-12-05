@@ -73,7 +73,7 @@ const AddCardAccountScreen = ({ navigation,route }) => {
     setCards(temp)   
   }
   useEffect(()=>{
-    // fetchData()
+    fetchData()
   },[])
   return (
     <SafeAreaView>
