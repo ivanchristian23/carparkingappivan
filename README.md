@@ -159,24 +159,7 @@ API_BASE_URL=your_backend_api_url
 PAYMENT_SECRET_KEY=your_payment_secret_key
 ```
 
-## Folder Structure
 
-```bash
-car-parking-app/
-│
-├── src/
-│   ├── components/
-│   ├── screens/
-│   ├── navigation/
-│   ├── services/
-│   ├── assets/
-│   └── utils/
-│
-├── android/
-├── ios/
-├── package.json
-└── README.md
-```
 
 ## Future Enhancements
 
@@ -206,7 +189,7 @@ The Smart Car Parking App provides a modern solution to common parking problems 
 
 ## Author
 
-Developed by **Your Name**
+Developed by **Ivan Ventura**
 
 ## License
 
